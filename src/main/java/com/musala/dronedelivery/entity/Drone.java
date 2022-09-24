@@ -2,7 +2,10 @@ package com.musala.dronedelivery.entity;
 
 import com.musala.dronedelivery.common.ModelType;
 import com.musala.dronedelivery.common.StateType;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -21,6 +24,7 @@ import javax.validation.constraints.Size;
 @Entity
 @Table(name = "drone")
 @Data
+@NoArgsConstructor
 public class Drone extends BaseEntity{
     @Id
     @GeneratedValue(generator = "prod-generator",strategy = GenerationType.SEQUENCE)

@@ -7,13 +7,12 @@
 package com.musala.dronedelivery.resource;
 
 import com.musala.dronedelivery.common.ModelType;
-import com.musala.dronedelivery.common.StateType;
-import com.musala.dronedelivery.common.ValueOfEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -21,10 +20,11 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 public class DroneResource extends BaseResource{
     @NotNull(message = "Serial number required")
-    @Max(value = 100,message = "maximum allowed 100 characters for serial number")
+    @Length(max = 100,message = "maximum allowed 100 characters for serial number")
     private String serialNumber;
-    @ValueOfEnum(enumClass = ModelType.class ,message = "Invalid model provided")
+   // @ValueOfEnum(enumClass = ModelType.class ,message = "Invalid model provided")
     private ModelType model;
+    @Range(min = 1,max = 500)
     private Integer weightLimit;
     private Integer batteryCapacity;
 }
