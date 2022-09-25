@@ -7,9 +7,11 @@
 package com.musala.dronedelivery.exception;
 
 import com.musala.dronedelivery.exception.common.APIError;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,8 +24,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 import javax.persistence.EntityNotFoundException;
 
+/**
+ * Global exception handler, Add or customize exception response
+ */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @ControllerAdvice
+@Slf4j
 public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         APIError apiError=new APIError(HttpStatus.BAD_REQUEST);
@@ -43,11 +49,20 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
             EntityNotFoundException ex) {
         APIError apiError = new APIError(HttpStatus.NOT_FOUND);
         apiError.setMessage(ex.getMessage());
+        if(logger.isDebugEnabled()) apiError.setDebugMessage(ex.getLocalizedMessage());
         return buildResponseEntity(apiError);
     }
     @ExceptionHandler(DataIntegrityViolationException.class)
     protected ResponseEntity<Object> handleDataIntegrity(
             DataIntegrityViolationException ex) {
+        APIError apiError = new APIError(HttpStatus.NOT_ACCEPTABLE);
+        apiError.setMessage(ex.getCause().getMessage());
+        apiError.setDebugMessage(ex.getLocalizedMessage());
+        return buildResponseEntity(apiError);
+    }
+    @ExceptionHandler(InvalidDataAccessApiUsageException.class)
+    protected ResponseEntity<Object> handleInvalidDataAccessApiUsageException(
+            InvalidDataAccessApiUsageException ex) {
         APIError apiError = new APIError(HttpStatus.NOT_ACCEPTABLE);
         apiError.setMessage(ex.getCause().getMessage());
         apiError.setDebugMessage(ex.getLocalizedMessage());
