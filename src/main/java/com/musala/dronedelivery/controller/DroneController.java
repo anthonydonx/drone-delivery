@@ -6,10 +6,10 @@
 
 package com.musala.dronedelivery.controller;
 
-import com.musala.dronedelivery.common.ModelType;
 import com.musala.dronedelivery.common.StateType;
 import com.musala.dronedelivery.entity.Drone;
 import com.musala.dronedelivery.resource.DroneResource;
+import com.musala.dronedelivery.response.DroneBatteryResponse;
 import com.musala.dronedelivery.response.DroneResponse;
 import com.musala.dronedelivery.service.DroneService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -19,15 +19,10 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Column;
 import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Size;
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1")
@@ -56,5 +51,32 @@ public class DroneController {
         Drone drone = modelMapper.map(droneResource, Drone.class);
         DroneResponse droneResponse = droneService.createDrone(drone);
         return ResponseEntity.status(HttpStatus.CREATED).body(droneResponse);
+    }
+    /**
+     * Get drones by status (rather than get only available drones)
+     * Can use for checking available drones for loading as requirement document
+     * This endpoint use to get drones by its status rather than only available drones
+     *
+     * Assumptions :
+     * 1. Handled only 10  drones so that assumed  pagination and sorting NOT required
+     */
+    @GetMapping(value = "drones/state/{state}")
+    public ResponseEntity<List<DroneResponse>>dronesByStatus(@PathVariable StateType state){
+        List<DroneResponse> droneResponses=droneService.getDronesByStatus(state);
+        return ResponseEntity.ok(droneResponses);
+    }
+
+    /**
+     * get drone better level by drone Id
+     *
+     * Assumption :-
+     * 1. Get only battery percentage for specific drone id via @projection view rather than fetch all information from data source
+     * @param droneId
+     * @return
+     */
+    @GetMapping(value = "drones/battery/{droneId}")
+    public ResponseEntity<DroneBatteryResponse>dronesBattery(@PathVariable String droneId){
+        DroneBatteryResponse droneBatteryResponse=droneService.getBatteryLevelByDroneId(droneId);
+       return ResponseEntity.ok(droneBatteryResponse);
     }
 }
