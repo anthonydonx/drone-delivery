@@ -4,12 +4,13 @@ import com.musala.dronedelivery.common.StateType;
 import com.musala.dronedelivery.entity.Drone;
 import com.musala.dronedelivery.repository.DroneBatteryView;
 import com.musala.dronedelivery.repository.DroneRepository;
+import com.musala.dronedelivery.response.DroneBattery;
 import com.musala.dronedelivery.response.DroneBatteryResponse;
 import com.musala.dronedelivery.response.DroneResponse;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -20,6 +21,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Slf4j
 public class DroneService {
+    public static final String ID = "id";
     private final DroneRepository droneRepository;
     private final ModelMapper modelMapper;
 
@@ -67,5 +69,15 @@ public class DroneService {
         log.info("fetch drone battery info successfully ");
         // map and return as a @DroneBatteryResponse
         return DroneBatteryResponse.builder().batteryCapacity(viewById.getBatteryCapacity()).build();
+    }
+
+    /**
+     * get all drones for log available battery percentage
+     *
+     * @return
+     */
+    public List<Drone> getAllDronesBatteryLevel(){
+        return  droneRepository.findAll(Sort.by(ID)).stream().toList();
+
     }
 }

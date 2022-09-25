@@ -21,6 +21,14 @@ Alternatively you can use the [Spring Boot Maven plugin](https://docs.spring.io/
 ```shell
 mvn spring-boot:run
 ```
+## Check application status
+Additional features that help us to monitor and manage the Spring Boot application
+
+**_All actuator endpoints_**
+http://localhost:8080/actuator
+
+**_To check application health_**
+http://localhost:8080/actuator/health
 
 ## OpenAPI specification 
 
