@@ -34,6 +34,12 @@ http://localhost:8080/actuator/health
 
 http://localhost:8080/swagger-ui/index.html
 
+## Database - H2 (Use a file system to store data), file name : drone-db.mv.db
+
+H2 could use a file system to store database data. The biggest advantage of this approach comparing to the in-memory one is that database data is not lost after the application restarts.
+
+https://github.com/anthonydonx/drone-delivery/blob/main/drone-db.mv.db
+
 ## Features:
 
 The service should allow:
