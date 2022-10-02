@@ -60,7 +60,7 @@ The service should allow:
 | Checking available drones for loading                    | Implemented |
 | Check drone battery level for a given drone              | Implemented |
 | Introduce a periodic task to check drones battery levels | Implemented |
-| JUnit Test                                               | TBC         |
+| JUnit Test                                               | partially   |
 
 ## Tech Stack
 
