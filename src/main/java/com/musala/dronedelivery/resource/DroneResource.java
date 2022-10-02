@@ -4,6 +4,12 @@
  *  Unauthorized copying or redistribution of this file in source and binary forms via any medium  is strictly prohibited.
  */
 
+/*
+ *  (C) 2022 Asanka Anthony. - All Rights Reserved
+ *
+ *  Unauthorized copying or redistribution of this file in source and binary forms via any medium  is strictly prohibited.
+ */
+
 package com.musala.dronedelivery.resource;
 
 import com.musala.dronedelivery.common.ModelType;
@@ -12,7 +18,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
-
 import javax.validation.constraints.NotNull;
 
 @Data
