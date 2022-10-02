@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 /**
  * @author anthonydonx
- * Covert {@link ModelType} to String value while saving
+ * Covert {@link MedicationStatus} to String value while saving
  * JPA will automatically apply the conversion logic to all mapped attributes
  */
 @Converter(autoApply = true)
-public class ModelTypeConverter implements AttributeConverter<ModelType, String> {
+public class MedicationStatusConverter implements AttributeConverter<MedicationStatus, String> {
     /**
      * Converts the value stored in the entity attribute into the
      * data representation to be stored in the database.
@@ -26,8 +26,8 @@ public class ModelTypeConverter implements AttributeConverter<ModelType, String>
      * column
      */
     @Override
-    public String convertToDatabaseColumn(ModelType attribute) {
-        return attribute == null ? null : attribute.getModelCode();
+    public String convertToDatabaseColumn(MedicationStatus attribute) {
+        return attribute == null ? null : attribute.getStatusCode();
     }
 
     /**
@@ -44,8 +44,8 @@ public class ModelTypeConverter implements AttributeConverter<ModelType, String>
      * attribute
      */
     @Override
-    public ModelType convertToEntityAttribute(String dbData) {
+    public MedicationStatus convertToEntityAttribute(String dbData) {
         return dbData == null ? null :
-                Stream.of(ModelType.values()).filter(model -> model.getModelCode().equals(dbData)).findFirst().orElseThrow(IllegalAccessError::new);
+                Stream.of(MedicationStatus.values()).filter(model -> model.getStatusCode().equals(dbData)).findFirst().orElseThrow(IllegalAccessError::new);
     }
 }

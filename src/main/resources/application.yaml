@@ -8,6 +8,12 @@ spring:
     spring.jpa.database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+  servlet:
+    multipart:
+      enabled: true
+      file-size-threshold: 2KB
+      max-file-size: 50MB
+      max-request-size: 100MB
 management:
   endpoints:
     web:
@@ -16,3 +22,6 @@ management:
 application:
   battery-checker:
     fixed-delay: 5000
+  maxMedicationWeights: 500
+
+
