@@ -7,6 +7,7 @@
 package com.musala.dronedelivery.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
+import com.musala.dronedelivery.common.MedicationStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,4 +26,5 @@ public class MedicationResponse extends BaseResponse{
     private BigDecimal weight;
     private String code;
     private String imageUrl;
+    private MedicationStatus status;
 }

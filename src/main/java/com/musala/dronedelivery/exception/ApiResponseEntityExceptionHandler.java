@@ -66,6 +66,7 @@ public class ApiResponseEntityExceptionHandler extends ResponseEntityExceptionHa
     @ExceptionHandler(Exception.class)
     protected ResponseEntity<Object> handleException(
             Exception ex) {
+        logger.error(ex.getMessage());
         APIError apiError = new APIError(HttpStatus.BAD_REQUEST);
         apiError.setMessage(ex.getMessage());
         if(logger.isDebugEnabled()) apiError.setDebugMessage(ex.getLocalizedMessage());

@@ -13,7 +13,7 @@
 package com.musala.dronedelivery.entity;
 
 import com.musala.dronedelivery.common.MedicationStatus;
-import lombok.Data;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -21,7 +21,11 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "medication")
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public class Medication extends BaseEntity{
     @Id
     @GeneratedValue(generator = "medication-generator",strategy = GenerationType.SEQUENCE)
@@ -35,4 +39,9 @@ public class Medication extends BaseEntity{
     private String imageUrl;
     // maintain medication status @MedicationStatus
     private MedicationStatus status;
+
+    @ManyToOne
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery;
+
 }

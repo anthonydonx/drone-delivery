@@ -6,9 +6,7 @@
 
 package com.musala.dronedelivery.entity;
 
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedDate;
@@ -26,7 +24,11 @@ import java.util.Date;
  * simply copied to the database table mapped by the actual entity class.
  */
 @MappedSuperclass
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
 public abstract class BaseEntity {
 
     @CreationTimestamp
