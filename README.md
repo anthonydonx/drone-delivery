@@ -47,12 +47,12 @@ The service should allow:
  | Feature                                                  | Status      |
 |----------------------------------------------------------|-------------|
 | Registering a drone                                      | Implemented |
-| Loading a drone with medication items                    | TBC         |
+| Loading a drone with medication items                    | Implemented |
 | Checking loaded medication items for a given drone       | TBC         |
 | Checking available drones for loading                    | Implemented |
 | Check drone battery level for a given drone              | Implemented |
 | Introduce a periodic task to check drones battery levels | Implemented |
-| JUnit Test                                               | TBC         |
+| JUnit Test                                               | 40%         |
 
 ## Tech Stack
 
