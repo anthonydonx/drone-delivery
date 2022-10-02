@@ -8,10 +8,7 @@ package com.musala.dronedelivery.entity;
 
 import com.musala.dronedelivery.common.ModelType;
 import com.musala.dronedelivery.common.StateType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Parameter;
 
@@ -19,6 +16,7 @@ import org.hibernate.annotations.Parameter;
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * @author anthonydonx
@@ -29,17 +27,20 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "drone")
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
 @NoArgsConstructor
-public class Drone extends BaseEntity{
+@ToString
+public class Drone extends BaseEntity {
     @Id
-    @GeneratedValue(generator = "prod-generator",strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(generator = "prod-generator", strategy = GenerationType.SEQUENCE)
     @GenericGenerator(name = "prod-generator",
             parameters = @Parameter(name = "prefix", value = "drone"),
             strategy = "com.musala.dronedelivery.common.CustomIdGenerator")
     private String id;
 
-    @Column(length = 100,unique = true,nullable = false)
+    @Column(length = 100, unique = true, nullable = false)
     @Size(max = 100)
     private String serialNumber;
 
@@ -52,5 +53,8 @@ public class Drone extends BaseEntity{
     private Integer batteryCapacity;
 
     private StateType state;
+
+    @OneToMany(mappedBy = "drone")
+    private List<Delivery> deliveries;
 
 }
