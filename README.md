@@ -40,6 +40,14 @@ H2 could use a file system to store database data. The biggest advantage of this
 
 https://github.com/anthonydonx/drone-delivery/blob/main/drone-db.mv.db
 
+Access database : 
+http://localhost:8080/h2-console
+
+ url: jdbc:h2:file:./drone-db
+    username: sa
+    password: 123
+    driverClassName: org.h2.Driver
+
 ## Features:
 
 The service should allow:
